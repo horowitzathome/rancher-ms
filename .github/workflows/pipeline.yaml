@@ -33,5 +33,5 @@ jobs:
           platforms: linux/amd64
           push: true
           tags: |
-            yourusername/yourrepo:latest
-            yourusername/yourrepo:linux-amd64
+            horowitzathome/rancher-ms:latest
+            horowitzathome/rancher-ms:linux-amd64
