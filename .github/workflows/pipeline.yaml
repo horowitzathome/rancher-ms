@@ -45,8 +45,11 @@ jobs:
 
       - name: Install Docker
         run: |
-          brew install docker
-          brew services start docker   
+          brew install --cask docker
+          open -a Docker
+  
+      - name: Wait for Docker to start
+        run: sleep 10  
   
       - name: Login to DockerHub
         run: echo ${{ secrets.DOCKERHUB_PASSWORD }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin

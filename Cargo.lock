@@ -915,7 +915,7 @@ dependencies = [
 
 [[package]]
 name = "rancher-ms"
-version = "0.1.4"
+version = "0.1.5"
 dependencies = [
  "anyhow",
  "assert2",
