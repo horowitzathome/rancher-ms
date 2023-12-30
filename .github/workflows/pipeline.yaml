@@ -46,23 +46,15 @@ jobs:
       - name: Install Docker
         run: |
           brew install --cask docker
-          open -a Docker
   
-      - name: Wait for Docker to start
-        run: sleep 10  
+      - name: Wait for Docker to be installed
+        run: sleep 10
+  
+      - name: Verify Docker installation
+        run: docker --version
   
       - name: Login to DockerHub
-        run: echo ${{ secrets.DOCKERHUB_PASSWORD }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
+        run: echo ${{ secrets.DOCKERHUB_PASSWORD }} | $(brew --prefix)/bin/docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
   
       - name: Build and push Docker image for macOS
-        run: docker build -t horowitzathome/rancher-ms:macos-amd64 -f Dockerfile .
-
-      - name: Build and push Docker image for macOS
-        uses: docker/build-push-action@v2
-        with:
-          context: .
-          file: ./Dockerfile
-          platforms: darwin/amd64
-          push: true
-          tags: |
-            horowitzathome/rancher-ms:macos-amd64
+        run: $(brew --prefix)/bin/docker build -t horowitzathome/rancher-ms:macos-amd64 -f Dockerfile .
