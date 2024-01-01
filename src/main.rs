@@ -34,8 +34,7 @@ async fn main() -> Result<()> {
     let listener = tokio::net::TcpListener::bind("0.0.0.0:8081").await.unwrap();
     axum::serve(listener, router).await.unwrap();
 
-
-    /* 
+    /*
     let server = axum::Server::bind(&std::net::SocketAddr::from(([0, 0, 0, 0], 8080)))
         .serve(router.into_make_service())
         .with_graceful_shutdown(async move {
@@ -85,6 +84,7 @@ fn create_router() -> Router {
         .route("/hello", routing::get(listen::root_hello))
         .route("/hello/dog", routing::get(listen::get_dog))
         .route("/dog", routing::get(listen::get_dog_root))
+        .route("/write_dog", routing::post(listen::write_dog))
         //.layer(Extension(reader_deployment))
         .layer(tower_http::trace::TraceLayer::new_for_http())
         // Reminder: routes added *after* TraceLayer are not subject to its logging behavior

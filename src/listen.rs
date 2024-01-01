@@ -1,11 +1,39 @@
 use axum::{http::StatusCode, response::IntoResponse, Json};
 use chrono::Utc;
+use std::fs::{File, OpenOptions};
+use std::io::prelude::*;
 use tracing::info;
 
 #[derive(serde::Serialize, serde::Deserialize, Debug)]
 pub struct Dog {
     name: String,
     age: u32,
+}
+
+pub async fn write_dog() -> impl IntoResponse {
+    info!("write_dog");
+
+    let file_path = "/dog/data/dog.txt";
+
+    let file_res = OpenOptions::new().create(true).append(true).open(file_path);
+
+    if file_res.is_err() {
+        let err = file_res.unwrap_err();
+        return (StatusCode::INTERNAL_SERVER_ERROR, err.to_string());
+    }
+
+    let mut file = file_res.unwrap();
+
+    // Write data to the file
+    let data_to_write = "Hello, Millie!";
+    let wd_res = file.write_all(data_to_write.as_bytes());
+
+    if wd_res.is_err() {
+        let err = wd_res.unwrap_err();
+        return (StatusCode::INTERNAL_SERVER_ERROR, err.to_string());
+    }
+
+    (StatusCode::OK, "All good writing dog data".to_owned())
 }
 
 pub async fn get_dog_root() -> impl IntoResponse {
