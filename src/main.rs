@@ -85,6 +85,7 @@ fn create_router() -> Router {
         .route("/hello/dog", routing::get(listen::get_dog))
         .route("/dog", routing::get(listen::get_dog_root))
         .route("/write_dog", routing::post(listen::write_dog))
+        .route("/read_dog", routing::post(listen::read_dog))
         //.layer(Extension(reader_deployment))
         .layer(tower_http::trace::TraceLayer::new_for_http())
         // Reminder: routes added *after* TraceLayer are not subject to its logging behavior
