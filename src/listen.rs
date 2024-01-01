@@ -28,7 +28,7 @@ pub async fn write_dog() -> impl IntoResponse {
     let now = Utc::now();
     let now_str = &now.to_rfc3339();
 
-    let data_to_write = format!("{}-{}", "Hello, Millie!", now_str);
+    let data_to_write = format!("{}-{}\n", "Hello, Millie!", now_str);
     let wd_res = file.write_all(data_to_write.as_bytes());
 
     if wd_res.is_err() {
