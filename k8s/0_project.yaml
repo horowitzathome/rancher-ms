@@ -1,0 +1,8 @@
+apiVersion: management.cattle.io/v3
+kind: Project
+metadata:
+  name: dog-project
+  annotations:
+    field.cattle.io/projectName: dog-project
+spec:
+  clusterName: local

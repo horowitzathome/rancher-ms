@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rancher-ms-deployment
+  namespace: rancher-ms-ns
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: rancher-ms-app
+  template:
+    metadata:
+      labels:
+        app: rancher-ms-app
+    spec:
+      containers:
+      - name: rancher-ms-container
+        image: horowitzathome/rancher-ms
+        ports:
+        - containerPort: 8081
+        readinessProbe:
+          httpGet:
+            path: /actuator/health
+            port: 8081
+          initialDelaySeconds: 0
+          timeoutSeconds: 1
+          periodSeconds: 10
+          successThreshold: 1
+          failureThreshold: 3

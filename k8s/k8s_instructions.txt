@@ -1,0 +1,27 @@
+Install kubectl on Linux:
+See https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/
+sudo apt-get update
+sudo apt-get install -y apt-transport-https ca-certificates curl
+curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.29/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.29/deb/ /' | sudo tee /etc/apt/sources.list.d/kubernetes.list
+sudo apt-get update
+sudo apt-get install -y kubectl
+
+In Rancher UI for cluster klick on right upper icon to download kube config.
+Then store it, like I did here in k8s folder with name rancher_config.yaml
+Then in a shell do the following export. Now you can use kubectl.
+export KUBECONFIG=/$HOME/Rancher/rancher_config.yaml
+
+Try out: kubectl cluster-info
+
+kubectl apply -f 1_namespace.yaml
+kubectl apply -f 2_deployment.yaml
+kubectl apply -f 3_service.yaml
+
+Look for service in Rancher UI to find the node port, e.g. 31020
+Look for Nodes in Rancher UI to find the node (e.g. local-node) and to find it's External IP, e.g. 172.17.0.2
+Test service from terminal e.g. with curl 172.17.0.2:31020
+
+Set defualt namespace:
+kubectl config set-context --current --namespace=rancher-ms-ns
+
