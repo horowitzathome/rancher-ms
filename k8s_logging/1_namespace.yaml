@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  annotations:
+    field.cattle.io/description: Fluentd Namespace
+    field.cattle.io/projectId: local:p-blzt6
+    lifecycle.cattle.io/create.namespace-auth: 'true'
+  name: fluentd-ns
+  labels:
+    field.cattle.io/projectId: p-blzt6
+    kubernetes.io/metadata.name: fluentd-ns
