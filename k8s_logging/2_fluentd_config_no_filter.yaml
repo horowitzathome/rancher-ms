@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: fluentd-config
+  namespace: dog-ns
+data:
+  fluent.conf: |
+    <source>
+      @type forward
+      port 24224
+    </source>
+
+  

@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: fluentd-config
-  namespace: fluentd-ns
+  namespace: dog-ns
 data:
   fluent.conf: |
     <source>
@@ -14,7 +14,7 @@ data:
       <filter **>
         @type parser
         format json
-        key_name log
+        key_name ""
       </filter>
 
       <match **>
